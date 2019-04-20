@@ -1,0 +1,54 @@
+﻿@using Abc.MvcWebUI.Entity
+@model IEnumerable<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="jumbotron">
+
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">
+        This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+        to
+        featured content or information.
+    </p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+
+</div>
+
+<div class="row">
+
+
+    @foreach (var urun in Model)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="holder.js/100px180/" alt="@urun.Name">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="/Home/Details/@urun.Id">
+                            @urun.Name
+                        </a>
+                    </h4>
+                    <p class="card-text">
+                        @urun.Description
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            @urun.Price
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
