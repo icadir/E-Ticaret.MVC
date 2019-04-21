@@ -1,4 +1,5 @@
-﻿using Abc.MvcWebUI.Identity;
+﻿using System;
+using Abc.MvcWebUI.Identity;
 using Abc.MvcWebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -12,7 +13,6 @@ namespace Abc.MvcWebUI.Controllers
     public class AccountController : Controller
     {
         private UserManager<ApplicationUser> UserManager;
-
         private RoleManager<ApplicationRole> RoleManager;
 
         public AccountController()
@@ -22,9 +22,8 @@ namespace Abc.MvcWebUI.Controllers
 
             var roleStore = new RoleStore<ApplicationRole>(new IdentityDataContext());
             RoleManager = new RoleManager<ApplicationRole>(roleStore);
+
         }
-
-
 
         // GET: Account
         public ActionResult Register()
@@ -38,38 +37,38 @@ namespace Abc.MvcWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // kayıt işlemleri
+                //Kayıt işlemleri
 
-                ApplicationUser user = new ApplicationUser
-                {
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Email = model.Email,
-                    UserName = model.UserName
-                };
+                var user = new ApplicationUser();
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Email = model.Email;
+                user.UserName = model.UserName;
 
                 var result = UserManager.Create(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    // kullanıcı olustu ve bir rol e ata
+                    //kullanıcı oluştu ve kullanıcıyı bir role atayabilirsiniz.
                     if (RoleManager.RoleExists("user"))
                     {
                         UserManager.AddToRole(user.Id, "user");
                     }
-
                     return RedirectToAction("Login", "Account");
                 }
                 else
                 {
-                    ModelState.AddModelError("RegisterUserError", "Kullanıcı Olusturma Hatası");
+                    ModelState.AddModelError("RegisterUserError", "Kullanıcı  oluşturma hatası.");
                 }
+
             }
+
             return View(model);
         }
 
 
 
+        // GET: Account
         public ActionResult Login()
         {
             return View();
@@ -81,32 +80,33 @@ namespace Abc.MvcWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Login İşlemleri
+                //Login işlemleri
                 var user = UserManager.Find(model.UserName, model.Password);
+
                 if (user != null)
                 {
-                    // var olan kullanıcıyı sisteme dahil et
-                    // applicationCookie oluşturup sisteme bırak.
+                    // varolan kullanıcıyı sisteme dahil et.
+                    // ApplicationCookie oluşturup sisteme bırak.
 
                     var authManager = HttpContext.GetOwinContext().Authentication;
                     var identityclaims = UserManager.CreateIdentity(user, "ApplicationCookie");
                     var authProperties = new AuthenticationProperties();
-                    (new AuthenticationProperties()).IsPersistent = model.RememberMe;
-
+                    authProperties.IsPersistent = model.RememberMe;
                     authManager.SignIn(authProperties, identityclaims);
 
-                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    if (!String.IsNullOrEmpty(ReturnUrl))
                     {
-                        Redirect(ReturnUrl);
+                        return Redirect(ReturnUrl);
                     }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("LoginUserError", "Böyle bir kullanıcı yok.");
                 }
-
             }
+
             return View(model);
         }
 
@@ -114,7 +114,9 @@ namespace Abc.MvcWebUI.Controllers
         {
             var authManager = HttpContext.GetOwinContext().Authentication;
             authManager.SignOut();
+
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

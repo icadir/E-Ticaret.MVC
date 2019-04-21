@@ -1,12 +1,13 @@
 ﻿
 
-<ul class="navbar-nav my-2 my-lg-0">
+
+<ul class="navbar-nav  my-2 my-lg-0">
 
     @if (Request.IsAuthenticated)
     {
-        // kullancı adını ve logaout linklerini çıkar
+        //kullanıcı adını ve logout linklerini çıkar
         <li class="nav-item active">
-            <a class="nav-link" href="/">@User.Identity.Name </a>
+            <a class="nav-link" href="/">@User.Identity.Name</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/Account/Logout">Logout</a>
@@ -14,13 +15,16 @@
     }
     else
     {
+        //login ve register linkleri çıkar
         <li class="nav-item active">
-            <a class="nav-link" href="/Account/Login">Login </a>
+            <a class="nav-link" href="/Account/Login">Login</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="/Account/Login">Kullanıcı Oluştur </a>
+            <a class="nav-link" href="/Account/Register">Register</a>
         </li>
     }
+
+
 
 
 
