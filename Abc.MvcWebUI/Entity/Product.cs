@@ -1,10 +1,13 @@
-﻿namespace Abc.MvcWebUI.Entity
+﻿using System.ComponentModel;
+
+namespace Abc.MvcWebUI.Entity
 {
     public class Product
     {
         public int Id { get; set; }
-
+        [DisplayName("Ürün Adı")]
         public string Name { get; set; }
+        [DisplayName("Ürün Açıklaması")]
         public string Description { get; set; }
         public double Price { get; set; }
         public int Stock { get; set; }
