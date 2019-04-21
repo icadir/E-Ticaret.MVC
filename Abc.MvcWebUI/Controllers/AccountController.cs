@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Abc.MvcWebUI.Controllers
 {
-    [Authorize]
+  
     public class AccountController : Controller
     {
         private UserManager<ApplicationUser> UserManager;
