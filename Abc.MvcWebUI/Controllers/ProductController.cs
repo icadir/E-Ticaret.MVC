@@ -11,6 +11,7 @@ namespace Abc.MvcWebUI.Controllers
     {
         private DataContext db = new DataContext();
 
+
         // GET: Product
         public ActionResult Index()
         {
