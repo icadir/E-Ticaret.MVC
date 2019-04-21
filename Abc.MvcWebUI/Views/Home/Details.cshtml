@@ -59,10 +59,17 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <button class="btn btn-success">
+                    
+                    @using (Html.BeginForm("AddToCart","Cart"))
+                    {
+                        @Html.HiddenFor(x=>x.Id)
+                    <button type="submit" class="btn btn-success">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         Add To Cart
                     </button>
+                    }
+
+                  
                 </div>
             </div>
         </div>
