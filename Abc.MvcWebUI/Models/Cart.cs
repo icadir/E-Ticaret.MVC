@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Abc.MvcWebUI.Entity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Abc.MvcWebUI.Entity;
 
 namespace Abc.MvcWebUI.Models
 {

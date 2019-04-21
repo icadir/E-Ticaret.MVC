@@ -91,7 +91,8 @@ namespace Abc.MvcWebUI.Controllers
                 OrderNumber = "A" + (new Random()).Next(111111, 999999).ToString(),
                 Total = cart.Total(),
                 OrderDate = DateTime.Now,
-                UserName = entity.UserName,
+                OrderState = EnumOrderState.Waiting,
+                UserName = User.Identity.Name,
                 AdresBasligi = entity.AdresBasligi,
                 Adres = entity.Adres,
                 Semt = entity.Semt,
@@ -102,13 +103,12 @@ namespace Abc.MvcWebUI.Controllers
             };
 
 
-
             foreach (var pr in cart.CartLines)
             {
                 var orderline = new OrderLine
                 {
                     Quantity = pr.Quantity,
-                    Price = pr.Quantity*pr.Product.Price,
+                    Price = pr.Quantity * pr.Product.Price,
                     ProductId = pr.Product.Id
                 };
 
